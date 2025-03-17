@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Recommendation</title>
+</head>
+<body>
+    <h1>Sentiment-Based Product Recommendation</h1>
+    <form method="post">
+        <label for="user">Enter User:</label>
+        <input type="text" name="user" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    {% if recommendations is not none and recommendations|length > 0 %}
+        <h2>Recommended Products:</h2>
+        <ul>
+            {% for product in recommendations.to_dict(orient="records") %}
+                <li>{{ product.name }} - {{ product.pos_sent_percentage }}% positive sentiment</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
